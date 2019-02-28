@@ -94,8 +94,15 @@ async function updateOrderDtls(log){
         }
     }
 }
+<<<<<<< HEAD
 
 cron.schedule('0 10 16 28 2 *', async () => {
+=======
+const now = new Date();
+console.log(now);
+
+cron.schedule('0 25 16 28 2 *', async () => {
+>>>>>>> 9c6a84a03449321c8b26c492314d15c873a520ed
     log.warn(' ========== ORDER HEADERS TABLE ========== ');
     console.log('here starts script .... ');
     //await updateOrderHdrs(log);
