@@ -98,7 +98,7 @@ async function updateOrderDtls(log){
 const now = new Date();
 console.log(now);
 
-cron.schedule('0 35 16 28 2 *', async () => {
+cron.schedule('0 30 16 28 2 *', async () => {
     log.warn(' ========== ORDER HEADERS TABLE ========== ');
     console.log('here starts script .... ');
     //await updateOrderHdrs(log);
