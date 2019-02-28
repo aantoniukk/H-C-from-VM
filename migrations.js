@@ -27,11 +27,11 @@ async function updateOrderHdrs(log){
         let {TermsId, ...record} = OrderHdrExport[i];
         try{
             const recordId = record.OrderHdrId;
+            log.info(`searching for ${recordId} recordId`);
             const TVRecords = await TrackVia.getView(2099, {}, recordId);
-            log.warn(" -------- similar TrackVia records -------- ");
-            log.info(TVRecords.data);
+            log.warn(` -------- ${TVRecords.data.length} similar TrackVia records found -------- `);
             const orderRecord = _.find(TVRecords.data, { 'OrderHdrId': recordId.toString() });
-            log.warn(` -------- ${recordId} TrackVia record -------- `);
+            log.warn(` -------- ${orderRecord.id} TrackVia record -------- `);
             log.info(orderRecord);
             if(orderRecord) {
                 const newRec = await TrackVia.updateRecord(2099, orderRecord.id, record)
@@ -67,9 +67,9 @@ async function updateOrderDtls(log){
         const record = OrderDtlExport[i];
         try{
             const recordId = record.OrderDtlId;
+            log.info(`searching for ${recordId} recordId`);
             const TVRecords = await TrackVia.getView(2100, {}, recordId);
-            log.warn(" -------- similar TrackVia records -------- ");
-            log.info(TVRecords.data);
+            log.warn(` -------- ${TVRecords.data.length} similar TrackVia records found -------- `);
             const orderRecord = _.find(TVRecords.data, { 'OrderDtlId': recordId.toString() });
             log.warn(` -------- ${recordId} TrackVia record -------- `);
             log.info(orderRecord);
@@ -95,7 +95,7 @@ async function updateOrderDtls(log){
     }
 }
 
-cron.schedule('0 40 16 28 2 *', async () => {
+cron.schedule('0 55 16 28 2 *', async () => {
     log.warn(' ========== ORDER HEADERS TABLE ========== ');
     await updateOrderHdrs(log);
     log.info('CRON JOB ENDED');
