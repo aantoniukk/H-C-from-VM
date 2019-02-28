@@ -1,0 +1,11 @@
+{
+  "name": "hester-and-cook-vm",
+  "version": "1.0.0",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "lodash": "^4.17.11",
+    "node-cron": "^2.0.3",
+    "simple-node-logger": "^18.12.22",
+    "trackvia-api": "^1.8.3"
+  }
+}

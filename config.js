@@ -1,0 +1,4 @@
+module.exports = {
+    TVApiKey: '3a7584b6e5413557a7b45b47fb6995f9',
+    TVAccessToken: '2byOpHQ6y60eLh01dwmnm5oxEPH2z6zxTlzr1GkDozs7pB5hT3HQEfgTe760XWYC0YEyub+SwEg92kO+6sTeRUX1UcwL+96xOdv15H0eBLJvOqi1uFJW5CncHaj3B0DWQ1OiG85+WqJdZHYv5fBEjM+OXs1vbaICuD4hBTLCcjNFlmZVSuaBPrkWznIAUr0Rit/jpapRrKAr0IRyHqDjMzxIneKTlQqAqWfD2vJPIfs='
+}
