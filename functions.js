@@ -14,6 +14,7 @@ async function updateOrderDtls(log){
     const OrderDtlExport = rec.data.OrderDtlExport;
     log.info(`${OrderDtlExport.length} order details loaded; url: ${solovueUrl('OrderDtl')}`);
 
+    let tries = 0;
     for(let i = 0; i<OrderDtlExport.length; i++) {
         log.warn(i);
         const record = OrderDtlExport[i];
@@ -35,7 +36,13 @@ async function updateOrderDtls(log){
                 log.info(newRec.data);
             }
         }catch(err){
-            i--;
+            if(tries<5){
+                tries++;
+                i--;
+            } else {
+                tries = 0;
+                log.error(` !!!!!!!!! ERROR UPDATING OrderDtlId:${record.OrderDtlId} RECORD !!!!!!!!! `);
+            }
             log.error(err);
         }
     }
@@ -46,6 +53,7 @@ async function updateCustomers(log){
     const CustomerExport = rec.data.CustomerExport;
     log.info(`${CustomerExport.length} order customers loaded; url: ${solovueUrl('Customer')}`);
 
+    let tries = 0;
     for(let i = 0; i<CustomerExport.length; i++) {
         log.warn(i);
         const record = CustomerExport[i];
@@ -68,7 +76,13 @@ async function updateCustomers(log){
                 log.info(newRec.data);
             }
         }catch(err){
-            i--;
+            if(tries<5){
+                tries++;
+                i--;
+            } else {
+                tries = 0;
+                log.error(` !!!!!!!!! ERROR UPDATING CustomerId:${record.Id} RECORD !!!!!!!!! `);
+            }
             log.error(err);
         }
     }
@@ -78,8 +92,8 @@ async function updateOrderHdrs(log){
     const rec = await axios.get(solovueUrl('OrderHdr'));
     const OrderHdrExport = rec.data.OrderHdrExport;
     log.info(`${OrderHdrExport.length} order headers loaded; url: ${solovueUrl('OrderHdr')}`);
-
-    
+   
+    let tries = 0;
     for(let i = 0; i<OrderHdrExport.length; i++) {
         log.warn(i);
         let {TermsId, ...record} = OrderHdrExport[i];
@@ -89,7 +103,7 @@ async function updateOrderHdrs(log){
             log.warn(" -------- similar TrackVia records -------- ");
             log.info(TVRecords.data);
             const orderRecord = _.find(TVRecords.data, { 'OrderHdrId': recordId.toString() });
-            log.warn(" -------- recordId TrackVia record -------- ");
+            log.warn(` -------- ${recordId} TrackVia record -------- `);
             log.info(orderRecord);
             if(orderRecord) {
                 const newRec = await TrackVia.updateRecord(2099, orderRecord.id, record)
@@ -101,7 +115,14 @@ async function updateOrderHdrs(log){
                 log.info(newRec.data);
             }
         }catch(err){
-            i--;
+            if(tries<5){
+                tries++;
+                i--;
+            } else {
+                tries = 0;
+                log.error(` !!!!!!!!! ERROR UPDATING OrderHdrId:${record.OrderHdrId} RECORD !!!!!!!!! `);
+            }
+
             log.error(err);
         }
     }
