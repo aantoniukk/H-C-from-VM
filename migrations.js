@@ -31,13 +31,15 @@ async function updateOrderHdrs(log){
             const TVRecords = await TrackVia.getView(2099, {}, recordId);
             log.warn(` -------- ${TVRecords.data.length} similar TrackVia records found -------- `);
             const orderRecord = _.find(TVRecords.data, { 'OrderHdrId': recordId.toString() });
-            log.warn(` -------- ${orderRecord.id} TrackVia record -------- `);
-            log.info(orderRecord);
+            
             if(orderRecord) {
+                log.warn(` -------- ${orderRecord.id} TrackVia record -------- `);
+                log.info(orderRecord);
                 const newRec = await TrackVia.updateRecord(2099, orderRecord.id, record)
                 log.warn(` -------- Updated record ${orderRecord.id} -------- `);
                 log.info(newRec.data);
             }else{
+                log.warn(` -------- No TrackVia record exists yet -------- `);
                 const newRec = await TrackVia.addRecord(2099, record);
                 log.warn(" -------- Created record -------- ");
                 log.info(newRec.data);
@@ -71,14 +73,16 @@ async function updateOrderDtls(log){
             const TVRecords = await TrackVia.getView(2100, {}, recordId);
             log.warn(` -------- ${TVRecords.data.length} similar TrackVia records found -------- `);
             const orderRecord = _.find(TVRecords.data, { 'OrderDtlId': recordId.toString() });
-            log.warn(` -------- ${recordId} TrackVia record -------- `);
-            log.info(orderRecord);
+
             if(orderRecord) {
-                const newRec = await TrackVia.updateRecord(2100, orderRecord.id, record)
+                log.warn(` -------- ${orderRecord.id} TrackVia record -------- `);
+                log.info(orderRecord);
+                const newRec = await TrackVia.updateRecord(2099, orderRecord.id, record)
                 log.warn(` -------- Updated record ${orderRecord.id} -------- `);
                 log.info(newRec.data);
             }else{
-                const newRec = await TrackVia.addRecord(2100, record);
+                log.warn(` -------- No TrackVia record exists yet -------- `);
+                const newRec = await TrackVia.addRecord(2099, record);
                 log.warn(" -------- Created record -------- ");
                 log.info(newRec.data);
             }
@@ -95,7 +99,7 @@ async function updateOrderDtls(log){
     }
 }
 
-cron.schedule('0 55 16 28 2 *', async () => {
+cron.schedule('0 0 17 28 2 *', async () => {
     log.warn(' ========== ORDER HEADERS TABLE ========== ');
     await updateOrderHdrs(log);
     log.info('CRON JOB ENDED');
