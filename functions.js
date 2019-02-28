@@ -28,11 +28,11 @@ async function updateOrderDtls(log){
             if(orderRecord) {
                 const newRec = await TrackVia.updateRecord(2100, orderRecord.id, record)
                 log.warn(` -------- Updated record ${orderRecord.id} -------- `);
-                log.info(newRec);
+                log.info(newRec.data);
             }else{
                 const newRec = await TrackVia.addRecord(2100, record);
                 log.warn(" -------- Created record -------- ");
-                log.info(newRec);
+                log.info(newRec.data);
             }
         }catch(err){
             i--;
@@ -61,11 +61,11 @@ async function updateCustomers(log){
             if(orderRecord) {
                 const newRec = await TrackVia.updateRecord(2098, orderRecord.id, customer)
                 log.warn(` -------- Updated record ${orderRecord.id} -------- `);
-                log.info(newRec);
+                log.info(newRec.data);
             }else{
                 const newRec = await TrackVia.addRecord(2098, customer);
                 log.warn(" -------- Created record -------- ");
-                log.info(newRec);
+                log.info(newRec.data);
             }
         }catch(err){
             i--;
@@ -94,11 +94,11 @@ async function updateOrderHdrs(log){
             if(orderRecord) {
                 const newRec = await TrackVia.updateRecord(2099, orderRecord.id, record)
                 log.warn(` -------- Updated record ${orderRecord.id} -------- `);
-                log.info(newRec);
+                log.info(newRec.data);
             }else{
                 const newRec = await TrackVia.addRecord(2099, record);
                 log.warn(" -------- Created record -------- ");
-                log.info(newRec);
+                log.info(newRec.data);
             }
         }catch(err){
             i--;

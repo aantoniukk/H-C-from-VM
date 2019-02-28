@@ -7,9 +7,7 @@ const log = SimpleNodeLogger.createSimpleLogger({
     timestampFormat:'YYYY-MM-DD HH:mm:ss.SSS'
 });
 
-console.log('It works!!!!!');
-
-cron.schedule('*/15 * * * * *', async () => {
+cron.schedule('0 0 9 * * *', async () => {
     log.info('CRON JOB STARTED');
 
     log.warn(' ========== CUSTOMERS TABLE ========== ');
