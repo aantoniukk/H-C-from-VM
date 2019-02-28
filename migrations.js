@@ -95,18 +95,14 @@ async function updateOrderDtls(log){
     }
 }
 
-const now = new Date();
-console.log(now);
-
-cron.schedule('0 30 16 28 2 *', async () => {
+cron.schedule('0 40 16 28 2 *', async () => {
     log.warn(' ========== ORDER HEADERS TABLE ========== ');
-    console.log('here starts script .... ');
-    //await updateOrderHdrs(log);
+    await updateOrderHdrs(log);
     log.info('CRON JOB ENDED');
 });
 
-// cron.schedule('0 0 4 2 3 *', async () => {
-//     log.warn(' ========== ORDER DETAILS TABLE ========== ');
-//     await updateOrderDtls(log);
-//     log.info('CRON JOB ENDED');
-// });
+cron.schedule('0 0 4 2 3 *', async () => {
+    log.warn(' ========== ORDER DETAILS TABLE ========== ');
+    await updateOrderDtls(log);
+    log.info('CRON JOB ENDED');
+});
