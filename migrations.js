@@ -99,7 +99,7 @@ async function updateOrderDtls(log){
     }
 }
 
-cron.schedule('0 0 17 28 2 *', async () => {
+cron.schedule('0 03 17 28 2 *', async () => {
     log.warn(' ========== ORDER HEADERS TABLE ========== ');
     await updateOrderHdrs(log);
     log.info('CRON JOB ENDED');
