@@ -13,7 +13,49 @@ const { TVAccessToken, TVApiKey } = require('./config');
 const TrackVia = new trackviaApi(TVApiKey, TVAccessToken);
 
 function solovueUrl(table){ 
-    return `https://wholesale.hesterandcook.com/api/Transfer/${table}/?ApiKey=C7130B64-CA80-4FD0-9E5D-FBCA75D89E9F&LargeFileOk=true&AsOf=2018-10-01`
+    return `https://wholesale.hesterandcook.com/api/Transfer/${table}/?ApiKey=C7130B64-CA80-4FD0-9E5D-FBCA75D89E9F&LargeFileOk=true&AsOf=2019-02-27`
+}
+
+async function updateCustomers(log){
+    const rec = await axios.get(solovueUrl('Customer'));
+    const CustomerExport = rec.data.CustomerExport;
+    log.info(`${CustomerExport.length} order customers loaded; url: ${solovueUrl('Customer')}`);
+
+    let tries = 0;
+    for(let i = 0; i<CustomerExport.length; i++) {
+        log.warn(i);
+        const record = CustomerExport[i];
+        try{
+            let {Id, ...customer} = record;
+            customer.CustomerId = Id;
+            log.info(`searching for ${Id} recordId`);
+            const TVRecords = await TrackVia.getView(2098, {}, Id);
+            log.warn(` -------- ${TVRecords.data.length} similar TrackVia records -------- `);
+            const orderRecord = _.find(TVRecords.data, { 'CustomerId': Id.toString() });
+
+            if(orderRecord) {
+                log.warn(` -------- ${Id} TrackVia record -------- `);
+                log.info(orderRecord);
+                const newRec = await TrackVia.updateRecord(2098, orderRecord.id, customer)
+                log.warn(` -------- Updated record ${orderRecord.id} -------- `);
+                log.info(newRec.data);
+            }else{
+                log.warn(` -------- No TrackVia record exists yet -------- `);
+                const newRec = await TrackVia.addRecord(2098, customer);
+                log.warn(" -------- Created record -------- ");
+                log.info(newRec.data);
+            }
+        }catch(err){
+            if(tries<5){
+                tries++;
+                i--;
+            } else {
+                tries = 0;
+                log.error(` !!!!!!!!! ERROR UPDATING CustomerId:${record.Id} RECORD !!!!!!!!! `);
+            }
+            log.error(err);
+        }
+    }
 }
 
 async function updateOrderHdrs(log){
@@ -99,14 +141,15 @@ async function updateOrderDtls(log){
     }
 }
 
-cron.schedule('0 03 17 28 2 *', async () => {
+cron.schedule('0 0 12 4 3 *', async () => {
+    log.info('CRON JOB STARTED');
+
+    log.warn(' ========== CUSTOMERS TABLE ========== ');
+    await updateCustomers(log);
     log.warn(' ========== ORDER HEADERS TABLE ========== ');
     await updateOrderHdrs(log);
-    log.info('CRON JOB ENDED');
-});
-
-cron.schedule('0 0 4 2 3 *', async () => {
     log.warn(' ========== ORDER DETAILS TABLE ========== ');
     await updateOrderDtls(log);
+
     log.info('CRON JOB ENDED');
 });
