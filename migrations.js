@@ -5,7 +5,7 @@ const cron = require('node-cron');
 const SimpleNodeLogger = require('simple-node-logger');
 
 const log = SimpleNodeLogger.createSimpleLogger({
-    logFilePath: `logs/big-migration-03-2019.log`,
+    logFilePath: `logs/smaller-migration-03-2019.log`,
     timestampFormat:'YYYY-MM-DD HH:mm:ss.SSS'
 });
 
@@ -141,7 +141,7 @@ async function updateOrderDtls(log){
     }
 }
 
-cron.schedule('0 0 12 4 3 *', async () => {
+cron.schedule('0 15 11 4 3 *', async () => {
     log.info('CRON JOB STARTED');
 
     log.warn(' ========== CUSTOMERS TABLE ========== ');

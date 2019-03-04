@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "dependencies": {
     "axios": "^0.18.0",
+    "fs": "0.0.1-security",
     "lodash": "^4.17.11",
+    "mongo-xlsx": "^1.0.12",
     "node-cron": "^2.0.3",
     "simple-node-logger": "^18.12.22",
     "trackvia-api": "^1.8.3"
