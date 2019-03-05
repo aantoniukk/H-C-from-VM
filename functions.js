@@ -101,29 +101,29 @@ async function updateOrderDtls(log){
     const rec = await axios.get(solovueUrl('OrderDtl'));
     const OrderDtlExport = rec.data.OrderDtlExport;
     log.info(`${OrderDtlExport.length} order details loaded; url: ${solovueUrl('OrderDtl')}`);
-
+   
     let tries = 0;
     for(let i = 0; i<OrderDtlExport.length; i++) {
         const record = OrderDtlExport[i];
-        log.warn(` -------- ${i} order detail record -------- `);
+        log.warn(` -------- ${i} order details record -------- `);
         log.info(record);
-        
+
         try{
             const recordId = record.OrderDtlId;
             log.info(`searching for ${recordId} recordId`);
             const TVRecords = await TrackVia.getView(2100, {}, recordId);
             log.warn(` -------- ${TVRecords.data.length} similar TrackVia records found -------- `);
             const orderRecord = _.find(TVRecords.data, { 'OrderDtlId': recordId.toString() });
-
+            
             if(orderRecord) {
                 log.warn(` -------- ${orderRecord.id} TrackVia record -------- `);
                 log.info(orderRecord);
-                const newRec = await TrackVia.updateRecord(2099, orderRecord.id, record)
+                const newRec = await TrackVia.updateRecord(2100, orderRecord.id, record)
                 log.warn(` -------- Updated record ${orderRecord.id} -------- `);
                 log.info(newRec.data);
             }else{
                 log.warn(` -------- No TrackVia record exists yet -------- `);
-                const newRec = await TrackVia.addRecord(2099, record);
+                const newRec = await TrackVia.addRecord(2100, record);
                 log.warn(" -------- Created record -------- ");
                 log.info(newRec.data);
             }
@@ -135,6 +135,7 @@ async function updateOrderDtls(log){
                 tries = 0;
                 log.error(` !!!!!!!!! ERROR UPDATING OrderDtlId:${record.OrderDtlId} RECORD !!!!!!!!! `);
             }
+
             log.error(err);
         }
     }

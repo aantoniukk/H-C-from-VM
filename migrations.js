@@ -144,7 +144,7 @@ async function updateOrderDtls(log){
     }
 }
 
-cron.schedule('0 35 12 * * *', async () => {
+cron.schedule('0 50 12 * * *', async () => {
     // log.info('CRON JOB STARTED');
 
     // log.warn(' ========== CUSTOMERS TABLE ========== ');
