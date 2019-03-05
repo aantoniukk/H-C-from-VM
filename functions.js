@@ -16,8 +16,10 @@ async function updateCustomers(log){
 
     let tries = 0;
     for(let i = 0; i<CustomerExport.length; i++) {
-        log.warn(i);
         const record = CustomerExport[i];
+        log.warn(` -------- ${i} customer record -------- `);
+        log.info(record);
+
         try{
             let {Id, ...customer} = record;
             customer.CustomerId = Id;
@@ -58,8 +60,10 @@ async function updateOrderHdrs(log){
    
     let tries = 0;
     for(let i = 0; i<OrderHdrExport.length; i++) {
-        log.warn(i);
         let {TermsId, ...record} = OrderHdrExport[i];
+        log.warn(` -------- ${i} order header record -------- `);
+        log.info(record);
+        
         try{
             const recordId = record.OrderHdrId;
             log.info(`searching for ${recordId} recordId`);
@@ -100,8 +104,10 @@ async function updateOrderDtls(log){
 
     let tries = 0;
     for(let i = 0; i<OrderDtlExport.length; i++) {
-        log.warn(i);
         const record = OrderDtlExport[i];
+        log.warn(` -------- ${i} order detail record -------- `);
+        log.info(record);
+        
         try{
             const recordId = record.OrderDtlId;
             log.info(`searching for ${recordId} recordId`);

@@ -5,7 +5,7 @@ const cron = require('node-cron');
 const SimpleNodeLogger = require('simple-node-logger');
 
 const log = SimpleNodeLogger.createSimpleLogger({
-    logFilePath: `logs/smaller-migration-03-2019.log`,
+    logFilePath: `logs/2019-03-04.log`,
     timestampFormat:'YYYY-MM-DD HH:mm:ss.SSS'
 });
 
@@ -13,7 +13,7 @@ const { TVAccessToken, TVApiKey } = require('./config');
 const TrackVia = new trackviaApi(TVApiKey, TVAccessToken);
 
 function solovueUrl(table){ 
-    return `https://wholesale.hesterandcook.com/api/Transfer/${table}/?ApiKey=C7130B64-CA80-4FD0-9E5D-FBCA75D89E9F&LargeFileOk=true&AsOf=2019-02-27`
+    return `https://wholesale.hesterandcook.com/api/Transfer/${table}/?ApiKey=C7130B64-CA80-4FD0-9E5D-FBCA75D89E9F&LargeFileOk=true&AsOf=2019-03-04`
 }
 
 async function updateCustomers(log){
@@ -104,27 +104,29 @@ async function updateOrderDtls(log){
     const rec = await axios.get(solovueUrl('OrderDtl'));
     const OrderDtlExport = rec.data.OrderDtlExport;
     log.info(`${OrderDtlExport.length} order details loaded; url: ${solovueUrl('OrderDtl')}`);
-
+   
     let tries = 0;
     for(let i = 0; i<OrderDtlExport.length; i++) {
-        log.warn(i);
         const record = OrderDtlExport[i];
+        log.warn(` -------- ${i} order details record -------- `);
+        log.info(record);
+
         try{
             const recordId = record.OrderDtlId;
             log.info(`searching for ${recordId} recordId`);
             const TVRecords = await TrackVia.getView(2100, {}, recordId);
             log.warn(` -------- ${TVRecords.data.length} similar TrackVia records found -------- `);
             const orderRecord = _.find(TVRecords.data, { 'OrderDtlId': recordId.toString() });
-
+            
             if(orderRecord) {
                 log.warn(` -------- ${orderRecord.id} TrackVia record -------- `);
                 log.info(orderRecord);
-                const newRec = await TrackVia.updateRecord(2099, orderRecord.id, record)
+                const newRec = await TrackVia.updateRecord(2100, orderRecord.id, record)
                 log.warn(` -------- Updated record ${orderRecord.id} -------- `);
                 log.info(newRec.data);
             }else{
                 log.warn(` -------- No TrackVia record exists yet -------- `);
-                const newRec = await TrackVia.addRecord(2099, record);
+                const newRec = await TrackVia.addRecord(2100, record);
                 log.warn(" -------- Created record -------- ");
                 log.info(newRec.data);
             }
@@ -136,18 +138,19 @@ async function updateOrderDtls(log){
                 tries = 0;
                 log.error(` !!!!!!!!! ERROR UPDATING OrderDtlId:${record.OrderDtlId} RECORD !!!!!!!!! `);
             }
+
             log.error(err);
         }
     }
 }
 
-cron.schedule('0 15 11 4 3 *', async () => {
-    log.info('CRON JOB STARTED');
+cron.schedule('0 35 12 * * *', async () => {
+    // log.info('CRON JOB STARTED');
 
-    log.warn(' ========== CUSTOMERS TABLE ========== ');
-    await updateCustomers(log);
-    log.warn(' ========== ORDER HEADERS TABLE ========== ');
-    await updateOrderHdrs(log);
+    // log.warn(' ========== CUSTOMERS TABLE ========== ');
+    // await updateCustomers(log);
+    // log.warn(' ========== ORDER HEADERS TABLE ========== ');
+    // await updateOrderHdrs(log);
     log.warn(' ========== ORDER DETAILS TABLE ========== ');
     await updateOrderDtls(log);
 
