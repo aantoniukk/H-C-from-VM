@@ -8,7 +8,7 @@ const log = SimpleNodeLogger.createSimpleLogger({
 });
 
 cron.schedule('0 0 8 * * *', async () => {
-    log.info('CRON JOB STARTED');
+    log.info(today() + ' CRON JOB STARTED');
 
     log.warn(' ========== CUSTOMERS TABLE ========== ');
     await updateCustomers(log);
