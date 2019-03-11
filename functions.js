@@ -13,6 +13,7 @@ async function updateCustomers(log){
     const rec = await axios.get(solovueUrl('Customer'));
     const CustomerExport = rec.data.CustomerExport;
     log.info(`${CustomerExport.length} order customers loaded; url: ${solovueUrl('Customer')}`);
+    log.info(CustomerExport);
 
     let tries = 0;
     for(let i = 0; i<CustomerExport.length; i++) {
@@ -57,6 +58,7 @@ async function updateOrderHdrs(log){
     const rec = await axios.get(solovueUrl('OrderHdr'));
     const OrderHdrExport = rec.data.OrderHdrExport;
     log.info(`${OrderHdrExport.length} order headers loaded; url: ${solovueUrl('OrderHdr')}`);
+    log.info(OrderHdrExport);
    
     let tries = 0;
     for(let i = 0; i<OrderHdrExport.length; i++) {
@@ -101,6 +103,7 @@ async function updateOrderDtls(log){
     const rec = await axios.get(solovueUrl('OrderDtl'));
     const OrderDtlExport = rec.data.OrderDtlExport;
     log.info(`${OrderDtlExport.length} order details loaded; url: ${solovueUrl('OrderDtl')}`);
+    log.info(OrderDtlExport);
    
     let tries = 0;
     for(let i = 0; i<OrderDtlExport.length; i++) {
