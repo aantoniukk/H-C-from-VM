@@ -12,13 +12,14 @@ function solovueUrl(table){
 async function updateCustomers(log){
     const rec = await axios.get(solovueUrl('Customer'));
     const CustomerExport = rec.data.CustomerExport;
-    log.info(`${CustomerExport.length} order customers loaded; url: ${solovueUrl('Customer')}`);
+    const recordsNumber = CustomerExport.length;
+    log.info(`${recordsNumber} order customers loaded; url: ${solovueUrl('Customer')}`);
     log.info(CustomerExport);
 
     let tries = 0;
-    for(let i = 0; i<CustomerExport.length; i++) {
+    for(let i = 0; i<recordsNumber; i++) {
         const record = CustomerExport[i];
-        log.warn(` -------- ${i} customer record -------- `);
+        log.warn(` -------- ${i} customer record of ${recordsNumber} records -------- `);
         log.info(record);
 
         try{
@@ -57,13 +58,14 @@ async function updateCustomers(log){
 async function updateOrderHdrs(log){
     const rec = await axios.get(solovueUrl('OrderHdr'));
     const OrderHdrExport = rec.data.OrderHdrExport;
-    log.info(`${OrderHdrExport.length} order headers loaded; url: ${solovueUrl('OrderHdr')}`);
+    const recordsNumber = OrderHdrExport.length;
+    log.info(`${recordsNumber} order headers loaded; url: ${solovueUrl('OrderHdr')}`);
     log.info(OrderHdrExport);
    
     let tries = 0;
-    for(let i = 0; i<OrderHdrExport.length; i++) {
+    for(let i = 0; i<recordsNumber; i++) {
         let {TermsId, ...record} = OrderHdrExport[i];
-        log.warn(` -------- ${i} order header record -------- `);
+        log.warn(` -------- ${i} customer record of ${recordsNumber} records -------- `);
         log.info(record);
         
         try{
@@ -102,13 +104,14 @@ async function updateOrderHdrs(log){
 async function updateOrderDtls(log){
     const rec = await axios.get(solovueUrl('OrderDtl'));
     const OrderDtlExport = rec.data.OrderDtlExport;
-    log.info(`${OrderDtlExport.length} order details loaded; url: ${solovueUrl('OrderDtl')}`);
+    const recordsNumber = OrderDtlExport.length;
+    log.info(`${recordsNumber} order details loaded; url: ${solovueUrl('OrderDtl')}`);
     log.info(OrderDtlExport);
    
     let tries = 0;
-    for(let i = 0; i<OrderDtlExport.length; i++) {
+    for(let i = 0; i<recordsNumber; i++) {
         const record = OrderDtlExport[i];
-        log.warn(` -------- ${i} order details record -------- `);
+        log.warn(` -------- ${i} customer record of ${recordsNumber} records -------- `);
         log.info(record);
 
         try{
