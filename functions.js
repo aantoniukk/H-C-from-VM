@@ -65,7 +65,7 @@ async function updateOrderHdrs(log){
     let tries = 0;
     for(let i = 0; i<recordsNumber; i++) {
         let {TermsId, ...record} = OrderHdrExport[i];
-        log.warn(` -------- ${i} customer record of ${recordsNumber} records -------- `);
+        log.warn(` -------- ${i} order headers record of ${recordsNumber} records -------- `);
         log.info(record);
         
         try{
@@ -111,7 +111,7 @@ async function updateOrderDtls(log){
     let tries = 0;
     for(let i = 0; i<recordsNumber; i++) {
         const record = OrderDtlExport[i];
-        log.warn(` -------- ${i} customer record of ${recordsNumber} records -------- `);
+        log.warn(` -------- ${i} order details record of ${recordsNumber} records -------- `);
         log.info(record);
 
         try{
