@@ -2,7 +2,7 @@ const cron = require('node-cron');
 const SimpleNodeLogger = require('simple-node-logger');
 const { updateCustomers, updateOrderHdrs, updateOrderDtls, today } = require('./functions');
 
-cron.schedule('0 0 8 * * *', async () => {
+cron.schedule('0 10 8 * * *', async () => {
     const log = SimpleNodeLogger.createSimpleLogger({
         logFilePath: `logs/${today()}.log`,
         timestampFormat:'YYYY-MM-DD HH:mm:ss.SSS'
