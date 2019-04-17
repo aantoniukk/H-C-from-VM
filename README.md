@@ -37,13 +37,13 @@ npm run daily
 and look for the logs on GitHub repository.
 
 ### Big migrations
-If ther is a nned to make biger migration (for example: update all records for last week, etc), enter the *migrations.js* file, make all the changes to script you need and run:
+If there is a need to make biger migration (for example: update all records for last week, etc), enter the *migrations.js* file, make all the changes to script you need and run:
 
 ```
 npm run migration
 ```
 
-You can do it on your local mashine (if process doesn't take long) or pull code to Viretual Mashine on Azure (by running *git pull* command in console of Azure Hester&Cook VM).
+You can do it on your local mashine (if process doesn't take long) or pull code to Virtual Mashine on Azure (by running *git pull* command in console of Azure Hester&Cook VM).
 
 ### Create Links for TrackVia tables
 The logic for that is simple: the script, which creates a link in TrackVia runs after rhe record in updated. So all you need to do is get all records without links and update some field in that record.
