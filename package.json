@@ -1,6 +1,11 @@
 {
   "name": "hester-and-cook-vm",
   "version": "1.0.0",
+  "scripts": {
+    "daily": "node index.js",
+    "links": "node createLinks.js",
+    "migration": "node migrations.js"
+  },
   "dependencies": {
     "axios": "^0.18.0",
     "lodash": "^4.17.11",
