@@ -13,7 +13,7 @@ const { TVAccessToken, TVApiKey } = require('./config');
 const TrackVia = new trackviaApi(TVApiKey, TVAccessToken);
 
 function solovueUrl(table){ 
-    return `https://wholesale.hesterandcook.com/api/Transfer/${table}/?ApiKey=C7130B64-CA80-4FD0-9E5D-FBCA75D89E9F&LargeFileOk=true&AsOf=2019-03-04`
+    return `https://wholesale.hesterandcook.com/api/Transfer/${table}/?ApiKey=C7130B64-CA80-4FD0-9E5D-FBCA75D89E9F&LargeFileOk=true&AsOf=2019-04-10`
 }
 
 async function updateCustomers(log){
@@ -144,15 +144,17 @@ async function updateOrderDtls(log){
     }
 }
 
-cron.schedule('0 50 12 * * *', async () => {
-    // log.info('CRON JOB STARTED');
+async function a () {
+    log.info('CRON JOB STARTED');
 
-    // log.warn(' ========== CUSTOMERS TABLE ========== ');
-    // await updateCustomers(log);
-    // log.warn(' ========== ORDER HEADERS TABLE ========== ');
-    // await updateOrderHdrs(log);
+    log.warn(' ========== CUSTOMERS TABLE ========== ');
+    await updateCustomers(log);
+    log.warn(' ========== ORDER HEADERS TABLE ========== ');
+    await updateOrderHdrs(log);
     log.warn(' ========== ORDER DETAILS TABLE ========== ');
     await updateOrderDtls(log);
 
     log.info('CRON JOB ENDED');
-});
+}
+
+a();
