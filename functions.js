@@ -26,19 +26,19 @@ async function updateCustomers(log){
             let {Id, ...customer} = record;
             customer.CustomerId = Id;
             log.info(`searching for ${Id} recordId`);
-            const TVRecords = await TrackVia.getView(2098, {}, Id);
+            const TVRecords = await TrackVia.getView(2675, {}, Id);
             log.warn(` -------- ${TVRecords.data.length} similar TrackVia records -------- `);
             const orderRecord = _.find(TVRecords.data, { 'CustomerId': Id.toString() });
 
             if(orderRecord) {
                 log.warn(` -------- ${Id} TrackVia record -------- `);
                 log.info(orderRecord);
-                const newRec = await TrackVia.updateRecord(2098, orderRecord.id, customer)
+                const newRec = await TrackVia.updateRecord(2675, orderRecord.id, customer)
                 log.warn(` -------- Updated record ${orderRecord.id} -------- `);
                 log.info(newRec.data);
             }else{
                 log.warn(` -------- No TrackVia record exists yet -------- `);
-                const newRec = await TrackVia.addRecord(2098, customer);
+                const newRec = await TrackVia.addRecord(2675, customer);
                 log.warn(" -------- Created record -------- ");
                 log.info(newRec.data);
             }
