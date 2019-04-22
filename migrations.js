@@ -5,7 +5,7 @@ const cron = require('node-cron');
 const SimpleNodeLogger = require('simple-node-logger');
 
 const log = SimpleNodeLogger.createSimpleLogger({
-    logFilePath: `logs/2019-03-04.log`,
+    logFilePath: `logs/migration-2019-04-19.log`,
     timestampFormat:'YYYY-MM-DD HH:mm:ss.SSS'
 });
 
@@ -13,18 +13,22 @@ const { TVAccessToken, TVApiKey } = require('./config');
 const TrackVia = new trackviaApi(TVApiKey, TVAccessToken);
 
 function solovueUrl(table){ 
-    return `https://wholesale.hesterandcook.com/api/Transfer/${table}/?ApiKey=C7130B64-CA80-4FD0-9E5D-FBCA75D89E9F&LargeFileOk=true&AsOf=2019-04-10`
+    return `https://wholesale.hesterandcook.com/api/Transfer/${table}/?ApiKey=C7130B64-CA80-4FD0-9E5D-FBCA75D89E9F&LargeFileOk=true&AsOf=2019-04-19`
 }
 
 async function updateCustomers(log){
     const rec = await axios.get(solovueUrl('Customer'));
     const CustomerExport = rec.data.CustomerExport;
-    log.info(`${CustomerExport.length} order customers loaded; url: ${solovueUrl('Customer')}`);
+    const recordsNumber = CustomerExport.length;
+    log.info(`${recordsNumber} order customers loaded; url: ${solovueUrl('Customer')}`);
+    log.info(CustomerExport);
 
     let tries = 0;
-    for(let i = 0; i<CustomerExport.length; i++) {
-        log.warn(i);
+    for(let i = 0; i<recordsNumber; i++) {
         const record = CustomerExport[i];
+        log.warn(` -------- ${i} customer record of ${recordsNumber} records -------- `);
+        log.info(record);
+
         try{
             let {Id, ...customer} = record;
             customer.CustomerId = Id;
@@ -61,12 +65,16 @@ async function updateCustomers(log){
 async function updateOrderHdrs(log){
     const rec = await axios.get(solovueUrl('OrderHdr'));
     const OrderHdrExport = rec.data.OrderHdrExport;
-    log.info(`${OrderHdrExport.length} order headers loaded; url: ${solovueUrl('OrderHdr')}`);
+    const recordsNumber = OrderHdrExport.length;
+    log.info(`${recordsNumber} order headers loaded; url: ${solovueUrl('OrderHdr')}`);
+    log.info(OrderHdrExport);
    
     let tries = 0;
-    for(let i = 0; i<OrderHdrExport.length; i++) {
-        log.warn(i);
+    for(let i = 0; i<recordsNumber; i++) {
         let {TermsId, ...record} = OrderHdrExport[i];
+        log.warn(` -------- ${i} order headers record of ${recordsNumber} records -------- `);
+        log.info(record);
+        
         try{
             const recordId = record.OrderHdrId;
             log.info(`searching for ${recordId} recordId`);
@@ -103,12 +111,14 @@ async function updateOrderHdrs(log){
 async function updateOrderDtls(log){
     const rec = await axios.get(solovueUrl('OrderDtl'));
     const OrderDtlExport = rec.data.OrderDtlExport;
-    log.info(`${OrderDtlExport.length} order details loaded; url: ${solovueUrl('OrderDtl')}`);
+    const recordsNumber = OrderDtlExport.length;
+    log.info(`${recordsNumber} order details loaded; url: ${solovueUrl('OrderDtl')}`);
+    log.info(OrderDtlExport);
    
     let tries = 0;
-    for(let i = 0; i<OrderDtlExport.length; i++) {
+    for(let i = 0; i<recordsNumber; i++) {
         const record = OrderDtlExport[i];
-        log.warn(` -------- ${i} order details record -------- `);
+        log.warn(` -------- ${i} order details record of ${recordsNumber} records -------- `);
         log.info(record);
 
         try{
