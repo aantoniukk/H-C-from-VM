@@ -5,7 +5,7 @@ const cron = require('node-cron');
 const SimpleNodeLogger = require('simple-node-logger');
 
 const log = SimpleNodeLogger.createSimpleLogger({
-    logFilePath: `logs/migration-2019-04-19.log`,
+    logFilePath: `logs/migration-2019-04-27.log`,
     timestampFormat:'YYYY-MM-DD HH:mm:ss.SSS'
 });
 
