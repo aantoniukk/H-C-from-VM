@@ -1,22 +1,20 @@
-const nodemailer = require('nodemailer');
+const sgMail = require("@sendgrid/mail");
 
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: 'andrii@holzmann.enterprises',
-    pass: 'becsfqdbdzdidpmu'
-  }
-});
-const mailOptionStarted = {
-  to: 'andrii@holzmann.enterprises',
-  subject: 'H&C daily start',
-  text: 'Daile has begun!'
+const { sendGdrid } = require("./config");
+
+const msgFinish = {
+  to: ["andrii@holzmann.enterprises", "tgonchar@basquare.com"],
+  from: "info@about.HAndC",
+  subject: "H&C daily finish",
+  text: "Daily is over!"
+};
+const msgStart = {
+  to: ["andrii@holzmann.enterprises", "tgonchar@basquare.com"],
+  from: "info@about.HAndC",
+  subject: "H&C daily start",
+  text: "Daily has begun!"
 };
 
-const mailOptionFinished = {
-  to: 'andrii@holzmann.enterprises',
-  subject: 'H&C daily finish',
-  text: 'Daily is over!'
-};
+sgMail.setApiKey(sendGdrid);
 
-module.exports = { transporter, mailOptionStarted, mailOptionFinished };
+module.exports = { sgMail, msgStart, msgFinish };
