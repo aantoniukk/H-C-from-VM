@@ -12,6 +12,7 @@
     "migration": "node migrations.js"
   },
   "dependencies": {
+    "@sendgrid/mail": "^6.4.0",
     "axios": "^0.18.0",
     "lodash": "^4.17.11",
     "node-cron": "^2.0.3",
