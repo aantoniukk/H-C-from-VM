@@ -1,15 +1,15 @@
 const sgMail = require("@sendgrid/mail");
 
-const { sendGdrid } = require('./config');
+const { sendGdrid } = require("./config");
 
 const msgFinish = {
-  to: "andrii@holzmann.enterprises",
+  to: ["andrii@holzmann.enterprises", "tgonchar@basquare.com"],
   from: "info@about.HAndC",
   subject: "H&C daily finish",
   text: "Daily is over!"
 };
 const msgStart = {
-  to: "andrii@holzmann.enterprises",
+  to: ["andrii@holzmann.enterprises", "tgonchar@basquare.com"],
   from: "info@about.HAndC",
   subject: "H&C daily start",
   text: "Daily has begun!"
