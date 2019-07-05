@@ -4,7 +4,8 @@ const SimpleNodeLogger = require('simple-node-logger');
 const { sgMail, msgStart, msgFinish } = require("./emailSender");
 const { updateCustomers, updateOrderHdrs, updateOrderDtls, today } = require('./functions');
 
-cron.schedule('0 40 10 * * *', async () => {
+cron.schedule('50 7 * * *', async () => {
+
     const log = SimpleNodeLogger.createSimpleLogger({
         logFilePath: `logs/${today()}.log`,
         timestampFormat:'YYYY-MM-DD HH:mm:ss.SSS'
