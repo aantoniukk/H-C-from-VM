@@ -1,6 +1,11 @@
 {
   "name": "hester-and-cook-vm",
   "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/holzmann-enterprises/hester-and-cook-daily-imports.git"
+  },
+  "license": "MIT",
   "scripts": {
     "daily": "node index.js",
     "links": "node createLinks.js",
@@ -10,6 +15,7 @@
     "axios": "^0.18.0",
     "lodash": "^4.17.11",
     "node-cron": "^2.0.3",
+    "nodemailer": "^6.2.1",
     "simple-node-logger": "^18.12.22",
     "trackvia-api": "^1.8.3"
   }

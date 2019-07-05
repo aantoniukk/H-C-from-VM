@@ -5,7 +5,7 @@ const cron = require('node-cron');
 const SimpleNodeLogger = require('simple-node-logger');
 
 const log = SimpleNodeLogger.createSimpleLogger({
-    logFilePath: `logs/migration-2019-04-27.log`,
+    logFilePath: `logs/migration-2019-06-30.log`,
     timestampFormat:'YYYY-MM-DD HH:mm:ss.SSS'
 });
 
@@ -13,7 +13,7 @@ const { TVAccessToken, TVApiKey } = require('./config');
 const TrackVia = new trackviaApi(TVApiKey, TVAccessToken);
 
 function solovueUrl(table){ 
-    return `https://wholesale.hesterandcook.com/api/Transfer/${table}/?ApiKey=C7130B64-CA80-4FD0-9E5D-FBCA75D89E9F&LargeFileOk=true&AsOf=2019-04-27`
+    return `https://wholesale.hesterandcook.com/api/Transfer/${table}/?ApiKey=C7130B64-CA80-4FD0-9E5D-FBCA75D89E9F&LargeFileOk=true&AsOf=2019-06-30`
 }
 
 async function updateCustomers(log){
