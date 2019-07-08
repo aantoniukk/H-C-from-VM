@@ -10,7 +10,7 @@ const {
   currentTime
 } = require("./functions");
 
-cron.schedule("48 18 * * *", async () => {
+cron.schedule("30 6 * * *", async () => {
   const log = SimpleNodeLogger.createSimpleLogger({
     logFilePath: `logs/${today()}.log`,
     timestampFormat: "YYYY-MM-DD HH:mm:ss.SSS"
