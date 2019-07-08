@@ -16,6 +16,7 @@ async function updateCustomers(log){
     log.info(`${recordsNumber} order customers loaded; url: ${solovueUrl('Customer')}`);
     log.info(CustomerExport);
 
+    let countForEmailAdded = 0;
     let tries = 0;
     for(let i = 0; i<recordsNumber; i++) {
         const record = CustomerExport[i];
@@ -41,6 +42,7 @@ async function updateCustomers(log){
                 const newRec = await TrackVia.addRecord(2675, customer);
                 log.warn(" -------- Created record -------- ");
                 log.info(newRec.data);
+                countForEmailAdded++;
             }
         }catch(err){
             if(tries<5){
@@ -53,6 +55,7 @@ async function updateCustomers(log){
             log.error(err);
         }
     }
+    return { added: countForEmailAdded, updated: recordsNumber - countForEmailAdded };
 }
 
 async function updateOrderHdrs(log){
@@ -62,6 +65,7 @@ async function updateOrderHdrs(log){
     log.info(`${recordsNumber} order headers loaded; url: ${solovueUrl('OrderHdr')}`);
     log.info(OrderHdrExport);
    
+    let countForEmailAdded = 0;
     let tries = 0;
     for(let i = 0; i<recordsNumber; i++) {
         let {TermsId, ...record} = OrderHdrExport[i];
@@ -86,6 +90,7 @@ async function updateOrderHdrs(log){
                 const newRec = await TrackVia.addRecord(2099, record);
                 log.warn(" -------- Created record -------- ");
                 log.info(newRec.data);
+                countForEmailAdded++;
             }
         }catch(err){
             if(tries<5){
@@ -99,6 +104,7 @@ async function updateOrderHdrs(log){
             log.error(err);
         }
     }
+    return { added: countForEmailAdded, updated: recordsNumber - countForEmailAdded };
 }
 
 async function updateOrderDtls(log){
@@ -108,6 +114,7 @@ async function updateOrderDtls(log){
     log.info(`${recordsNumber} order details loaded; url: ${solovueUrl('OrderDtl')}`);
     log.info(OrderDtlExport);
    
+    let countForEmailAdded = 0;
     let tries = 0;
     for(let i = 0; i<recordsNumber; i++) {
         const record = OrderDtlExport[i];
@@ -132,6 +139,7 @@ async function updateOrderDtls(log){
                 const newRec = await TrackVia.addRecord(2100, record);
                 log.warn(" -------- Created record -------- ");
                 log.info(newRec.data);
+                countForEmailAdded++;
             }
         }catch(err){
             if(tries<5){
@@ -145,13 +153,15 @@ async function updateOrderDtls(log){
             log.error(err);
         }
     }
+    return { added: countForEmailAdded, updated: recordsNumber - countForEmailAdded };
 }
 
 module.exports = { 
     updateCustomers, 
     updateOrderHdrs, 
     updateOrderDtls,
-    today 
+    today,
+    currentTime
 }
 
 function addZeroToDate(num){
@@ -169,4 +179,9 @@ function today(){
     const date = new Date();
     
     return addZeroToDate(date.getFullYear()) + '-' + addZeroToDate(date.getMonth()+1) + '-' + addZeroToDate(date.getDate());
+}
+
+function currentTime() {
+    const date = new Date();
+    return `${date.getHours()}:${date.getMinutes()}`
 }
