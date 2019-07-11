@@ -34,31 +34,28 @@ cron.schedule("17 7 * * *", async () => {
     subject: "H&C Daily Data Migration Log",
     text:
       "We've finished the daily migration of data from SoloVue to TrackVia.",
-    html: `<body style="width: 500px;">
-          <h3>Start time/date: 7:50, ${today()}</h3>
-          <h3>Finish date/time: ${currentTime()}, ${today()}</h3>
-          <table style="width:65%; text-align: center;">
-        <tr>
-          <th></th>
-          <th>Customer</th>
-          <th>Order Headers</th>
-          <th>order Details</th>
-        </tr>
-        <tr>
-          <td>Added</td>
-          <td>${countCustomer.added}</td>
-          <td>${countOrdHdr.added}</td>
-          <td>${countDtl.added}</td>
-        </tr>
-        <tr>
-          <td>Updated</td>
-          <td>${countCustomer.updated}</td>
-          <td>${countOrdHdr.updated}</td>
-          <td>${countDtl.updated}</td>
-        </tr>
-      </table>
-      </body>
-          `
+    html: `<p>
+    The Hester & Cook daily data migration has completed successfully. Please
+    contact us if you have any questions or concerns!
+  </p>
+  <hr />
+  <body style="width: 500px;">
+    <h3>Start date/time: ${currentTime()}</h3>
+    <h3>Finish date/time: ${currentTime()}</h3>
+    <hr />
+    <div style="width:65%; text-align: rigth;">
+      <h3 style="margin-left: 37px;">Customer</h3>
+      <h4>Added ${countCustomer.added}</h4>
+      <h4>Updated ${countCustomer.updated}</h4>
+      <h3 style="margin-left: 37px;">Order headers</h3>
+      <h4>Added ${countOrdHdr.added}</h4>
+      <h4>Updated ${countOrdHdr.updated}</h4>
+      <h3 style="margin-left: 37px;">Order details</h3>
+      <h4>Added ${countDtl.added}</h4>
+      <h4>Updated ${countDtl.updated}</h4>
+    </div>
+    <hr />
+  </body>`
   });
   log.info("CRON JOB ENDED");
 });
