@@ -37,7 +37,7 @@ cron.schedule("17 7 * * *", async () => {
     html: `<body style="width: 500px;">
           <h3>Start time/date: 7:50, ${today()}</h3>
           <h3>Finish date/time: ${currentTime()}, ${today()}</h3>
-          <table style="width:50%; text-align: center;">
+          <table style="width:65%; text-align: center;">
         <tr>
           <th></th>
           <th>Customer</th>
