@@ -15,4 +15,4 @@ const msgStart = {
 
 sgMail.setApiKey(sendGdrid);
 
-module.exports = { sgMail, msgStart, msgFinish };
+module.exports = { sgMail, msgStart };
