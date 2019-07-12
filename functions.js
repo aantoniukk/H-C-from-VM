@@ -183,5 +183,5 @@ function today(){
 
 function currentTime() {
     const date = new Date();
-    return `${date.getHours()}:${date.getMinutes()}`
+    return `${date.toLocaleString("en-US", { timeZone: "America/Chicago" })}`
 }
