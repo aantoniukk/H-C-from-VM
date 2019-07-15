@@ -9,7 +9,7 @@ const msgStart = {
     "nathaniel@holzmann.enterprises"
   ],
   from: "donotreply@holzmann.enterprises",
-  subject: "H&C Daily Data Migration Log (Test)",
+  subject: "H&C Daily Data Migration Log (Start)",
   text: "Daily has begun!"
   // html: `<html><p>Works</p>
   //      <img src='li_45365'></img>
