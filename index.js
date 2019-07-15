@@ -40,21 +40,22 @@ cron.schedule("0 7 * * *", async () => {
   </p>
   <hr />
   <body style="width: 500px;">
-    <h3>Start date/time: ${startDate}</h3>
-    <h3>Finish date/time: ${currentTime()}</h3>
+    <h3 style="text-align: left; margin-bottom: 0px;">Start Date/Time:</h3>
+    ${startDate}
+    <h3 style="text-align: left; margin-bottom: 0px;">Finish Date/Time:</h3>
+    ${currentTime()}
     <hr />
-    <div style="width:65%; text-align: rigth;">
-      <h3 style="margin-left: 37px;">Customer</h3>
-      <h4>Added ${countCustomer.added}</h4>
-      <h4>Updated ${countCustomer.updated}</h4>
-      <h3 style="margin-left: 37px;">Order headers</h3>
-      <h4>Added ${countOrdHdr.added}</h4>
-      <h4>Updated ${countOrdHdr.updated}</h4>
-      <h3 style="margin-left: 37px;">Order details</h3>
-      <h4>Added ${countDtl.added}</h4>
-      <h4>Updated ${countDtl.updated}</h4>
+    <div style="width:65%; text-align: left;">
+      <h3 style="text-align: left; margin-bottom: 0px;">Customers</h3>
+      <p style="margin-top: 0px;">Added: ${countCustomer.added} <br>
+      Updated: ${countCustomer.updated}</p>
+      <h3 style="text-align: left; margin-bottom: 0px;">Order Headers</h3>
+      <p style="margin-top: 0px;">Added: ${countOrdHdr.added} <br>
+      Updated: ${countOrdHdr.updated}</p>
+      <h3 style="text-align: left; margin-bottom: 0px;">Order Details</h3>
+      <p style="margin-top: 0px;">Added: ${countDtl.added} <br>
+      Updated: ${countDtl.updated}</p>
     </div>
-    <hr />
   </body>`
   });
   log.info("CRON JOB ENDED");
