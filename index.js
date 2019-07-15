@@ -15,7 +15,7 @@ cron.schedule("0 7 * * *", async () => {
     logFilePath: `logs/${today()}.log`,
     timestampFormat: "YYYY-MM-DD HH:mm:ss.SSS"
   });
-
+  const startDate = currentTime();
   log.info(today() + " CRON JOB STARTED");
   sgMail.send(msgStart);
   log.warn(" ========== CUSTOMERS TABLE ========== ");
@@ -40,7 +40,7 @@ cron.schedule("0 7 * * *", async () => {
   </p>
   <hr />
   <body style="width: 500px;">
-    <h3>Start date/time: ${currentTime()}</h3>
+    <h3>Start date/time: ${startDate}</h3>
     <h3>Finish date/time: ${currentTime()}</h3>
     <hr />
     <div style="width:65%; text-align: rigth;">
