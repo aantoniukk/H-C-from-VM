@@ -41,9 +41,9 @@ cron.schedule("0 7 * * *", async () => {
   <hr />
   <body style="width: 500px;">
     <h3 style="text-align: left; margin-bottom: 0px;">Start Date/Time:</h3>
-    ${startDate}
-    <h3 style="text-align: left; margin-bottom: 0px;">Finish Date/Time:</h3>
-    ${currentTime()}
+    <p style="margin-top: 0px;">${startDate}</p>
+    <h3 style="text-align: left; margin-bottom: 0px;">Start Date/Time:</h3>
+    <p style="margin-top: 0px;">${currentTime()}</p>
     <hr />
     <div style="width:65%; text-align: left;">
       <h3 style="text-align: left; margin-bottom: 0px;">Customers</h3>
