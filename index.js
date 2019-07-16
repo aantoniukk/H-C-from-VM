@@ -34,10 +34,10 @@ cron.schedule("0 7 * * *", async () => {
     subject: "H&C Daily Data Migration Log",
     text:
       "We've finished the daily migration of data from SoloVue to TrackVia.",
-    html: `<p>
-    The Hester & Cook daily data migration has completed successfully. Please
-    contact us if you have any questions or concerns!
+    html: `<p style="margin-bottom: 0px">
+    The Hester & Cook daily data migration has completed successfully.
   </p>
+  <p style="margin-top: 0px">Please contact us if you have any questions or concerns!</p>
   <hr />
   <body style="width: 500px;">
     <h3 style="text-align: left; margin-bottom: 0px;">Start Date/Time:</h3>
