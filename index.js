@@ -28,7 +28,7 @@ cron.schedule("0 7 * * *", async () => {
     to: [
       "andrii@holzmann.enterprises",
       "tgonchar@basquare.com",
-      "nathaniel@holzmann.enterprises"
+      // "nathaniel@holzmann.enterprises"
     ],
     from: "donotreply@holzmann.enterprises",
     subject: "H&C Daily Data Migration Log",
