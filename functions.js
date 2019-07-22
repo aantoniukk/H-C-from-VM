@@ -14,7 +14,7 @@ async function updateCustomers(log){
     const CustomerExport = rec.data.CustomerExport;
     const recordsNumber = CustomerExport.length;
     log.info(`${recordsNumber} order customers loaded; url: ${solovueUrl('Customer')}`);
-    log.info(CustomerExport);
+    //log.info(CustomerExport);
 
     let countForEmailAdded = 0;
     let tries = 0;
