@@ -16,7 +16,7 @@
     "axios": "^0.19.0",
     "lodash": "^4.17.11",
     "node-cron": "^2.0.3",
-    "nodemailer": "^6.2.1",
+    "nodemailer": "^6.4.16",
     "simple-node-logger": "^18.12.22",
     "trackvia-api": "^1.8.3"
   }
